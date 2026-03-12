@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🧹 HK Pro Training | Housekeeping Excellence Program</title>
+<link href="https://script.google.com/macros/s/AKfycbyyV7bMjAvtRXPSil6N_KYLgK097pmmDcWrr8GscrmlJJUZWHpdGm5w5Wljg2u_tzZZHA/exec" rel="stylesheet">
+<style>
+  :root {
+    --primary: #1a73e8;
+    --primary-dark: #1557b0;
+    --accent: #fbbc04;
+    --success: #34a853;
+    --danger: #ea4335;
+    --bg: #f0f4f9;
+    --card: #ffffff;
+    --text: #1c2b4a;
+    --muted: #5f7a99;
+    --border: #d8e3f0;
+    --gradient: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+    --shadow: 0 4px 20px rgba(26,115,232,0.12);
+    --radius: 16px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: 'Hind', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* SPLASH / REGISTRATION */
+  #splash {
+    min-height: 100vh;
+    background: var(--gradient);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  #splash::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .splash-logo { font-size: 72px; margin-bottom: 8px; }
+  .splash-title {
+    font-family: 'Baloo 2', cursive;
+    font-size: 28px; font-weight: 800;
+    color: #fff; text-align: center;
+    margin-bottom: 4px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  .splash-sub {
+    color: rgba(255,255,255,0.8);
+    font-size: 15px; text-align: center;
+    margin-bottom: 32px;
+  }
+  .reg-card {
+    background: white;
+    border-radius: 24px;
+    padding: 32px 28px;
+    width: 100%; max-width: 400px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  }
+  .reg-card h2 {
+    font-family: 'Baloo 2', cursive;
+    font-size: 20px; font-weight: 700;
+    color: var(--text); margin-bottom: 20px;
+    text-align: center;
+  }
+  .form-group { margin-bottom: 16px; }
+  .form-group label {
+    display: block; font-size: 13px;
+    font-weight: 600; color: var(--muted);
+    margin-bottom: 6px; text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .form-group input, .form-group select {
+    width: 100%; padding: 12px 14px;
+    border: 2px solid var(--border);
+    border-radius: 10px; font-size: 15px;
+    font-family: 'Hind', sans-serif;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  .form-group input:focus, .form-group select:focus {
+    border-color: var(--primary);
+  }
+  .btn-primary {
+    width: 100%; padding: 14px;
+    background: var(--gradient);
+    color: white; border: none;
+    border-radius: 12px; font-size: 16px;
+    font-weight: 700; font-family: 'Baloo 2', cursive;
+    cursor: pointer; transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 15px rgba(26,115,232,0.35);
+  }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(26,115,232,0.45); }
+  .btn-primary:active { transform: translateY(0); }
+
+  /* MAIN APP */
+  #app { display: none; }
+  .app-header {
+    background: var(--gradient);
+    padding: 16px 20px;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 4px 20px rgba(26,115,232,0.3);
+  }
+  .header-inner {
+    max-width: 600px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .header-brand {
+    font-family: 'Baloo 2', cursive;
+    font-size: 18px; font-weight: 800; color: white;
+  }
+  .header-staff { color: rgba(255,255,255,0.85); font-size: 13px; }
+
+  /* PROGRESS BAR */
+  .progress-section {
+    background: var(--gradient);
+    padding: 0 20px 20px;
+  }
+  .progress-inner { max-width: 600px; margin: 0 auto; }
+  .progress-label {
+    color: rgba(255,255,255,0.9); font-size: 13px;
+    margin-bottom: 8px; display: flex; justify-content: space-between;
+  }
+  .progress-bar {
+    height: 8px; background: rgba(255,255,255,0.2);
+    border-radius: 99px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; background: var(--accent);
+    border-radius: 99px; transition: width 0.6s cubic-bezier(0.34,1.56,0.64,1);
+  }
+
+  /* DAY CARDS */
+  .content {
+    max-width: 600px; margin: 0 auto;
+    padding: 20px 16px 80px;
+  }
+  .section-title {
+    font-family: 'Baloo 2', cursive;
+    font-size: 18px; font-weight: 700;
+    color: var(--text); margin-bottom: 14px;
+    padding-left: 4px;
+  }
+  .day-grid { display: flex; flex-direction: column; gap: 12px; }
+  .day-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    border: 2px solid var(--border);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+  }
+  .day-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+  .day-card.locked { opacity: 0.6; cursor: not-allowed; }
+  .day-card.locked:hover { transform: none; box-shadow: none; }
+  .day-card.completed { border-color: var(--success); }
+  .day-card.active { border-color: var(--primary); box-shadow: 0 4px 20px rgba(26,115,232,0.15); }
+
+  .day-header {
+    display: flex; align-items: center;
+    padding: 16px; gap: 14px;
+  }
+  .day-icon {
+    width: 52px; height: 52px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; flex-shrink: 0;
+  }
+  .day-card.completed .day-icon { background: #e8f5e9; }
+  .day-card.active .day-icon { background: #e3f2fd; }
+  .day-card.locked .day-icon { background: #f5f5f5; }
+
+  .day-info { flex: 1; }
+  .day-num {
+    font-size: 11px; font-weight: 700;
+    color: var(--muted); text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .day-title {
+    font-family: 'Baloo 2', cursive;
+    font-size: 16px; font-weight: 700;
+    color: var(--text); line-height: 1.2;
+  }
+  .day-subtitle { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .day-status { font-size: 22px; }
+
+  /* LESSON VIEW */
+  #lesson-view { display: none; }
+  .lesson-header {
+    background: var(--gradient);
+    padding: 16px 20px 24px;
+  }
+  .lesson-header-inner { max-width: 600px; margin: 0 auto; }
+  .back-btn {
+    background: rgba(255,255,255,0.2);
+    border: none; color: white;
+    padding: 8px 14px; border-radius: 8px;
+    font-size: 14px; cursor: pointer;
+    font-family: 'Hind', sans-serif;
+    display: flex; align-items: center; gap: 6px;
+    margin-bottom: 12px; width: fit-content;
+  }
+  .back-btn:hover { background: rgba(255,255,255,0.3); }
+  .lesson-day-label {
+    font-size: 12px; color: rgba(255,255,255,0.7);
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+  .lesson-title {
+    font-family: 'Baloo 2', cursive;
+    font-size: 22px; font-weight: 800;
+    color: white; margin-top: 4px;
+  }
+  .lesson-objective {
+    background: rgba(255,255,255,0.15);
+    border-radius: 10px; padding: 10px 14px;
+    margin-top: 12px; font-size: 13px;
+    color: rgba(255,255,255,0.9);
+  }
+  .lesson-content {
+    max-width: 600px; margin: 0 auto;
+    padding: 20px 16px 100px;
+  }
+  .topic-section {
+    background: var(--card);
+    border-radius: var(--radius);
+    margin-bottom: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .topic-header {
+    padding: 14px 16px;
+    background: linear-gradient(135deg, #f8faff 0%, #eef3ff 100%);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .topic-emoji { font-size: 22px; }
+  .topic-name {
+    font-family: 'Baloo 2', cursive;
+    font-size: 16px; font-weight: 700;
+    color: var(--text);
+  }
+  .topic-body { padding: 14px 16px; }
+  .topic-point {
+    display: flex; align-items: flex-start; gap: 10px;
+    margin-bottom: 10px;
+  }
+  .topic-point:last-child { margin-bottom: 0; }
+  .point-bullet {
+    width: 6px; height: 6px;
+    background: var(--primary); border-radius: 50%;
+    margin-top: 8px; flex-shrink: 0;
+  }
+  .point-text { font-size: 15px; line-height: 1.5; color: var(--text); }
+  .point-sub {
+    font-size: 13px; color: var(--muted);
+    margin-top: 3px;
+  }
+
+  /* IMAGE SECTION */
+  .image-section {
+    background: #f8faff;
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 16px;
+    border: 1px solid var(--border);
+  }
+  .image-section-title {
+    font-size: 13px; font-weight: 600;
+    color: var(--muted); margin-bottom: 10px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .image-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .img-card {
+    border-radius: 10px; overflow: hidden;
+    aspect-ratio: 4/3;
+    background: var(--border);
+    position: relative;
+  }
+  .img-card img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .img-label {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.6));
+    color: white; font-size: 11px; padding: 8px 8px 6px;
+    font-weight: 500;
+  }
+
+  /* COLOUR CODE BOXES */
+  .colour-codes { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+  .colour-box {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 12px; border-radius: 10px;
+  }
+  .colour-dot { width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0; }
+  .colour-desc { font-size: 14px; font-weight: 500; }
+
+  /* STEPS */
+  .steps-list { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+  .step-item {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 12px; background: #f8faff;
+    border-radius: 10px; border-left: 3px solid var(--primary);
+  }
+  .step-num {
+    width: 26px; height: 26px; background: var(--primary);
+    color: white; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; flex-shrink: 0;
+  }
+  .step-text { font-size: 14px; line-height: 1.5; padding-top: 2px; }
+
+  /* ALERT/TIP BOXES */
+  .tip-box {
+    border-radius: 10px; padding: 12px 14px;
+    margin-top: 10px; font-size: 14px;
+    display: flex; align-items: flex-start; gap: 10px;
+  }
+  .tip-box.warning { background: #fff8e1; border-left: 4px solid #f9a825; }
+  .tip-box.info { background: #e3f2fd; border-left: 4px solid var(--primary); }
+  .tip-box.danger { background: #ffebee; border-left: 4px solid var(--danger); }
+  .tip-box.success { background: #e8f5e9; border-left: 4px solid var(--success); }
+  .tip-icon { font-size: 20px; flex-shrink: 0; }
+  .tip-text { line-height: 1.5; }
+
+  /* PRACTICAL SECTION */
+  .practical-section {
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+    border-radius: var(--radius); padding: 16px;
+    margin-bottom: 16px; border: 1px solid #a5d6a7;
+  }
+  .practical-title {
+    font-family: 'Baloo 2', cursive;
+    font-size: 16px; font-weight: 700;
+    color: #2e7d32; margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .practical-item {
+    display: flex; align-items: center; gap: 10px;
+    background: white; border-radius: 8px;
+    padding: 10px 12px; margin-bottom: 8px;
+    font-size: 14px; color: #2e7d32;
+    border: 1px solid #c8e6c9;
+  }
+  .practical-item:last-child { margin-bottom: 0; }
+
+  /* COMPLETE BUTTON */
+  .complete-section {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: white; padding: 16px;
+    border-top: 1px solid var(--border);
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+    z-index: 50;
+  }
+  .complete-inner { max-width: 600px; margin: 0 auto; }
+  .btn-complete {
+    width: 100%; padding: 16px;
+    background: linear-gradient(135deg, var(--success) 0%, #2e7d32 100%);
+    color: white; border: none;
+    border-radius: 14px; font-size: 17px;
+    font-weight: 700; font-family: 'Baloo 2', cursive;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(52,168,83,0.4);
+    transition: transform 0.15s;
+  }
+  .btn-complete:hover { transform: translateY(-1px); }
+  .btn-complete:disabled {
+    background: #ccc; box-shadow: none;
+    cursor: not-allowed; transform: none;
+  }
+
+  /* QUIZ */
+  .quiz-section {
+    background: white; border-radius: var(--radius);
+    border: 2px solid var(--primary); margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .quiz-header {
+    background: var(--primary); padding: 12px 16px;
+    color: white;
+  }
+  .quiz-title {
+    font-family: 'Baloo 2', cursive;
+    font-size: 16px; font-weight: 700;
+  }
+  .quiz-subtitle { font-size: 12px; opacity: 0.85; margin-top: 2px; }
+  .quiz-body { padding: 16px; }
+  .quiz-question {
+    font-size: 15px; font-weight: 600;
+    color: var(--text); margin-bottom: 12px;
+    line-height: 1.4;
+  }
+  .quiz-options { display: flex; flex-direction: column; gap: 8px; }
+  .quiz-option {
+    padding: 11px 14px;
+    border: 2px solid var(--border);
+    border-radius: 10px; font-size: 14px;
+    cursor: pointer; transition: all 0.15s;
+    background: var(--bg);
+    font-family: 'Hind', sans-serif;
+    text-align: left;
+  }
+  .quiz-option:hover { border-color: var(--primary); background: #e8f0fe; }
+  .quiz-option.correct { border-color: var(--success); background: #e8f5e9; color: #2e7d32; }
+  .quiz-option.wrong { border-color: var(--danger); background: #ffebee; color: #c62828; }
+  .quiz-feedback {
+    margin-top: 12px; font-size: 14px;
+    padding: 10px 12px; border-radius: 8px;
+    display: none;
+  }
+  .quiz-feedback.show { display: block; }
+
+  /* CELEBRATION */
+  #celebration {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 200;
+    align-items: center; justify-content: center;
+  }
+  #celebration.show { display: flex; }
+  .celebration-card {
+    background: white; border-radius: 24px;
+    padding: 40px 32px; text-align: center;
+    max-width: 320px; width: 90%;
+    animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  @keyframes popIn {
+    from { transform: scale(0.5); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  .celebration-emoji { font-size: 64px; margin-bottom: 12px; }
+  .celebration-title {
+    font-family: 'Baloo 2', cursive;
+    font-size: 24px; font-weight: 800;
+    color: var(--text); margin-bottom: 8px;
+  }
+  .celebration-msg { font-size: 15px; color: var(--muted); margin-bottom: 24px; }
+  .confetti-piece {
+    position: fixed;
+    width: 10px; height: 10px;
+    animation: confettiFall linear forwards;
+    border-radius: 2px;
+    pointer-events: none; z-index: 300;
+  }
+  @keyframes confettiFall {
+    0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* CERTIFICATE */
+  .cert-section {
+    display: none;
+    max-width: 600px; margin: 0 auto;
+    padding: 20px 16px;
+  }
+  .cert-card {
+    background: white; border-radius: 20px;
+    border: 3px solid var(--accent);
+    padding: 32px 24px; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .cert-badge { font-size: 64px; margin-bottom: 12px; }
+  .cert-title {
+    font-family: 'Baloo 2', cursive;
+    font-size: 20px; font-weight: 800;
+    color: var(--primary); margin-bottom: 4px;
+  }
+  .cert-name {
+    font-family: 'Baloo 2', cursive;
+    font-size: 28px; font-weight: 800;
+    color: var(--text); margin: 12px 0;
+  }
+  .cert-text { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+
+  .hidden { display: none !important; }
+  .shimmer {
+    background: linear-gradient(90deg, #f0f4f9 25%, #e3eaf5 50%, #f0f4f9 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+  @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+</style>
+</head>
+<body>
+
+<!-- SPLASH / REGISTRATION -->
+<div id="splash">
+  <div class="splash-logo">🧹</div>
+  <div class="splash-title">HK Pro Training</div>
+  <div class="splash-sub">Professional Housekeeping Excellence Program</div>
+  <div class="reg-card">
+    <h2>👋 अपनी जानकारी भरें</h2>
+    <div class="form-group">
+      <label>आपका नाम</label>
+      <input type="text" id="reg-name" placeholder="जैसे: Ramesh Kumar" />
+    </div>
+    <div class="form-group">
+      <label>Employee ID (Optional)</label>
+      <input type="text" id="reg-id" placeholder="जैसे: HK001" />
+    </div>
+    <div class="form-group">
+      <label>Location / Site</label>
+      <input type="text" id="reg-site" placeholder="जैसे: Ahmedabad Office" />
+    </div>
+    <button class="btn-primary" onclick="startTraining()">Training शुरू करें 🚀</button>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app">
+  <div class="app-header">
+    <div class="header-inner">
+      <div class="header-brand">🧹 HK Pro Training</div>
+      <div class="header-staff" id="header-name">Staff</div>
+    </div>
+  </div>
+  <div class="progress-section">
+    <div class="progress-inner">
+      <div class="progress-label">
+        <span id="progress-text">0 / 7 दिन पूरे</span>
+        <span id="progress-pct">0%</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="section-title">📅 7 दिन की Training</div>
+    <div class="day-grid" id="day-grid"></div>
+  </div>
+</div>
+
+<!-- LESSON VIEW -->
+<div id="lesson-view">
+  <div class="lesson-header">
+    <div class="lesson-header-inner">
+      <button class="back-btn" onclick="backToHome()">← वापस जाएं</button>
+      <div class="lesson-day-label" id="lesson-day-label">Day 1</div>
+      <div class="lesson-title" id="lesson-title">Title</div>
+      <div class="lesson-objective" id="lesson-objective">Objective</div>
+    </div>
+  </div>
+  <div class="lesson-content" id="lesson-content"></div>
+  <div class="complete-section">
+    <div class="complete-inner">
+      <button class="btn-complete" id="complete-btn" onclick="completeDay()">
+        ✅ Day पूरी की — Mark Complete
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- CELEBRATION OVERLAY -->
+<div id="celebration">
+  <div class="celebration-card">
+    <div class="celebration-emoji" id="cel-emoji">🎉</div>
+    <div class="celebration-title" id="cel-title">Shabash!</div>
+    <div class="celebration-msg" id="cel-msg">Day complete!</div>
+    <button class="btn-primary" onclick="closeCelebration()">आगे बढ़ें →</button>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// CONFIGURATION — Google Sheets Web App URL यहाँ paste करें
+// ============================================================
+const GOOGLE_SHEET_URL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE';
+
+// ============================================================
+// TRAINING DATA — 7 Days
+// ============================================================
+const DAYS = [
+  {
+    id: 1,
+    emoji: '👋',
+    title: 'Introduction + Grooming + Work Discipline',
+    subtitle: 'पहचान, पेशेवर व्यवहार और अनुशासन',
+    objective: 'Staff को समझ आए कि Housekeeping का role क्या है और professional behaviour क्या होता है। आपका काम सिर्फ सफाई नहीं — यह पूरी company की image है!',
+    images: [
+      { url: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&q=80', label: 'Professional HK Staff' },
+      { url: 'https://images.unsplash.com/photo-1563453392212-326f5e854473?w=400&q=80', label: 'Clean Workplace' },
+      { url: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=80', label: 'Personal Grooming' },
+      { url: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=400&q=80', label: 'Team Discipline' }
+    ],
+    topics: [
+      {
+        emoji: '🏢',
+        name: 'Housekeeping का Role',
+        points: [
+          { text: 'आपका काम सिर्फ झाड़ू लगाना नहीं है — आप पूरी facility की नींव हैं', sub: 'Facility management में housekeeping सबसे important department है' },
+          { text: 'साफ जगह = खुश कर्मचारी = ज्यादा productivity', sub: 'Studies show clean offices increase productivity by 15%' },
+          { text: 'Office की hygiene से visitors और clients पर पहला impression बनता है', sub: 'First impression = company की image' },
+          { text: 'आप एक professional हैं — गर्व से अपना काम करें! 💪', sub: '' }
+        ]
+      },
+      {
+        emoji: '📋',
+        name: 'Duties और Responsibilities',
+        points: [
+          { text: 'Daily cleaning responsibility — हर दिन निश्चित areas की सफाई', sub: 'आपका area = आपकी जिम्मेदारी' },
+          { text: 'Area ownership — अपने assigned area का पूरा ख्याल रखें', sub: 'अगर कुछ गंदा है तो तुरंत साफ करें' },
+          { text: 'Reporting system — किसी भी problem को supervisor को बताएं', sub: 'टूटी चीज़, शिकायत, कोई भी issue तुरंत report करें' }
+        ]
+      },
+      {
+        emoji: '⏰',
+        name: 'Work Discipline',
+        points: [
+          { text: 'Attendance rules — समय पर आना mandatory है', sub: '' },
+          { text: 'Duty timing — अपनी shift के अनुसार काम करें', sub: '' },
+          { text: 'Break policy — breaks निर्धारित समय पर लें', sub: '' },
+          { text: 'Supervisor को daily report दें', sub: '' }
+        ],
+        tip: { type: 'warning', icon: '⚠️', text: 'याद रखें: बिना बताए late आना या जाना professional behaviour नहीं है। हमेशा supervisor को inform करें।' }
+      },
+      {
+        emoji: '💅',
+        name: 'Grooming और Personal Hygiene',
+        points: [
+          { text: 'Clean uniform — हर दिन साफ, press की हुई uniform पहनें', sub: '' },
+          { text: 'Hair और nails — बाल बंधे हुए, नाखून छोटे और साफ', sub: '' },
+          { text: 'Body odour control — रोज नहाएं, deodorant use करें', sub: '' },
+          { text: 'Hand hygiene — हर काम से पहले और बाद हाथ धोएं', sub: 'खासकर washroom cleaning के बाद' }
+        ],
+        tip: { type: 'info', icon: '💡', text: 'आप जैसे दिखते हैं वैसा ही काम करते हैं! साफ और presentable staff देखकर office में सभी comfortable feel करते हैं।' }
+      },
+      {
+        emoji: '🤝',
+        name: 'Behaviour और Communication',
+        points: [
+          { text: 'Employees से बात करते वक्त विनम्र रहें — "Sir/Ma\'am" बोलें', sub: '' },
+          { text: 'Visitors को देखकर smile करें और रास्ता दें', sub: '' },
+          { text: 'Respectful communication — कभी झगड़ा या बहस नहीं', sub: 'कोई issue हो तो supervisor को बताएं' }
+        ]
+      }
+    ],
+    practical: ['Uniform inspection — क्या uniform साफ और sahi है?', 'Grooming check — बाल, नाखून, body hygiene check', 'Practice करें: किसी visitor को विनम्रता से रास्ता दिखाएं'],
+    quiz: {
+      question: 'Housekeeping का मुख्य काम क्या है?',
+      options: ['सिर्फ झाड़ू लगाना', 'पूरी facility को साफ और professional रखना', 'सिर्फ washroom साफ करना', 'Manager को report करना'],
+      correct: 1,
+      explanation: 'सही! Housekeeping का role पूरी facility की cleanliness, hygiene और professional image बनाए रखना है।'
+    }
+  },
+  {
+    id: 2,
+    emoji: '🧽',
+    title: 'Basic Cleaning Principles',
+    subtitle: 'सही तरीके से सफाई कैसे करें',
+    objective: 'Staff को correct cleaning method सिखाना। सफाई का तरीका जितना सही होगा, काम उतना कम और result उतना बेहतर होगा!',
+    images: [
+      { url: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&q=80', label: 'Top to Bottom Cleaning' },
+      { url: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80', label: 'Colour Coded Cloths' },
+      { url: 'https://images.unsplash.com/photo-1563453392212-326f5e854473?w=400&q=80', label: 'Systematic Cleaning' },
+      { url: 'https://images.unsplash.com/photo-1527515637462-cff94edd56f9?w=400&q=80', label: 'Deep Cleaning' }
+    ],
+    topics: [
+      {
+        emoji: '📊',
+        name: 'Cleaning के Types',
+        points: [
+          { text: 'Daily Cleaning — हर दिन की routine सफाई', sub: 'झाड़ू, पोंछा, dustbin empty करना' },
+          { text: 'Periodic Cleaning — हफ्ते या महीने में एक बार', sub: 'Furniture पोंछना, AC vent साफ करना' },
+          { text: 'Deep Cleaning — पूरी thorough सफाई', sub: 'महीने में एक बार — हर कोना, हर surface' }
+        ]
+      },
+      {
+        emoji: '⬇️',
+        name: 'Cleaning Sequence — Golden Rules',
+        points: [
+          { text: 'ऊपर से नीचे (Top to Bottom) — पहले छत/ऊँची जगह, फिर नीचे', sub: 'ऊपर की धूल नीचे गिरती है, इसलिए पहले ऊपर साफ करो' },
+          { text: 'Dry से Wet — पहले सूखी सफाई (झाड़ू), फिर गीली (पोंछा)', sub: 'सूखा कचरा उठाओ, तब पानी लगाओ' },
+          { text: 'Left to Right — एक दिशा में systematically काम करो', sub: 'कोई जगह miss नहीं होगी' }
+        ],
+        tip: { type: 'success', icon: '✅', text: 'याद करें: पहले ऊपर → फिर नीचे। पहले सूखा → फिर गीला। हमेशा एक direction में।' }
+      },
+      {
+        emoji: '🎨',
+        name: 'Colour Coding System — बहुत Important!',
+        isColour: true,
+        colours: [
+          { color: '#ef5350', bg: '#ffebee', area: 'टॉयलेट एरिया', desc: 'WC, urinal — सिर्फ यहाँ' },
+          { color: '#ffa726', bg: '#fff3e0', area: 'Wash Basin', desc: 'Sink और basin cleaning' },
+          { color: '#42a5f5', bg: '#e3f2fd', area: 'Glass Cleaning', desc: 'Windows, mirrors' },
+          { color: '#66bb6a', bg: '#e8f5e9', area: 'Pantry / Kitchen', desc: 'खाने की जगह — सबसे साफ' }
+        ]
+      },
+      {
+        emoji: '🚫',
+        name: 'Cross Contamination — कभी मत करो!',
+        points: [
+          { text: 'Toilet cloth को pantry में कभी use मत करो', sub: 'बीमारी फैलती है!' },
+          { text: 'हर area के लिए अलग cloth, अलग tools', sub: 'Colour coding देखकर सही cloth उठाओ' },
+          { text: 'Use के बाद cloth को wash करो और सही जगह रखो', sub: '' }
+        ],
+        tip: { type: 'danger', icon: '⛔', text: 'Cross contamination से serious बीमारियाँ फैल सकती हैं। एक बार गलत cloth use करने से पूरे pantry में bacteria पहुँच सकते हैं!' }
+      }
+    ],
+    practical: ['Cloth colour identification practice करें', 'Correct cleaning sequence demonstrate करें (Top→Bottom, Dry→Wet)', 'Colour coding chart याद करें'],
+    quiz: {
+      question: 'Cleaning sequence में पहले क्या करना चाहिए?',
+      options: ['पहले floor साफ करो', 'पहले ऊँची जगह साफ करो, फिर नीचे आओ', 'पहले गीला पोंछा लगाओ', 'पहले chemicals spray करो'],
+      correct: 1,
+      explanation: 'बिल्कुल सही! Top to Bottom principle — ऊपर की धूल नीचे गिरती है। पहले ऊपर साफ करो, तब नीचे।'
+    }
+  },
+  {
+    id: 3,
+    emoji: '🧪',
+    title: 'Cleaning Chemicals और Dilution',
+    subtitle: 'सुरक्षित तरीके से chemicals use करना',
+    objective: 'Staff को chemicals का safe और correct use सिखाना। सही chemical, सही dilution — ये जानना जरूरी है। गलत use करने से surface खराब हो सकती है और health को नुकसान!',
+    images: [
+      { url: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=400&q=80', label: 'Cleaning Chemicals' },
+      { url: 'https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=400&q=80', label: 'Spray Bottle Use' },
+      { url: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80', label: 'Safety Gloves' },
+      { url: 'https://images.unsplash.com/photo-1563453392212-326f5e854473?w=400&q=80', label: 'Chemical Storage' }
+    ],
+    topics: [
+      {
+        emoji: '🧴',
+        name: 'Chemicals के Types',
+        points: [
+          { text: 'Glass Cleaner — शीशे, mirrors के लिए', sub: 'Blue colour, streak-free formula' },
+          { text: 'Floor Cleaner — floors के लिए', sub: 'Dilute करके use करें' },
+          { text: 'Disinfectant — bacteria और germs मारने के लिए', sub: 'High traffic areas, washrooms' },
+          { text: 'Toilet Cleaner — toilet bowl के लिए', sub: 'Thick formula, acid-based, सावधानी से use करें' }
+        ]
+      },
+      {
+        emoji: '💧',
+        name: 'Dilution Method — बहुत जरूरी!',
+        points: [
+          { text: 'Normal cleaning: 1 cap chemical + 1 litre पानी', sub: 'ज्यादा chemical waste है और surface खराब करता है' },
+          { text: 'Heavy soiling: 2 cap chemical + 1 litre पानी', sub: 'बहुत गंदी जगहों के लिए' },
+          { text: 'Disinfection: label पर दिए instructions follow करें', sub: 'हर product की ratio अलग होती है' }
+        ],
+        tip: { type: 'warning', icon: '⚠️', text: 'ज्यादा chemical लगाने से cleaning बेहतर नहीं होती — बल्कि surface damage होती है और chemical waste होता है। हमेशा सही dilution use करें।' }
+      },
+      {
+        emoji: '🚿',
+        name: 'Spray Bottle का सही Use',
+        points: [
+          { text: 'Spray distance: surface से 15-20 cm दूर रखकर spray करें', sub: '' },
+          { text: 'Correct quantity: 2-3 sprays काफी हैं', sub: 'ज्यादा spray करने से wastage होता है' },
+          { text: 'हर spray bottle पर label लगाएं — कौन सा chemical है', sub: '' }
+        ]
+      },
+      {
+        emoji: '🦺',
+        name: 'Chemical Safety — जान बचाओ!',
+        points: [
+          { text: 'Gloves हमेशा use करें — chemicals directly हाथ को damage करते हैं', sub: '' },
+          { text: 'आँखों में chemical नहीं जाना चाहिए — अगर गया तो तुरंत पानी से धोएं', sub: '' },
+          { text: 'Chemicals कभी mix मत करो — dangerous reaction हो सकती है', sub: 'जैसे: bleach + acid = toxic gas!' },
+          { text: 'Ventilated area में काम करें — windows खुली रखें', sub: '' }
+        ],
+        tip: { type: 'danger', icon: '⛔', text: 'दो अलग chemicals को कभी एक bottle में mix मत करो। यह बहुत खतरनाक हो सकता है — जहरीली gas बन सकती है!' }
+      },
+      {
+        emoji: '🗄️',
+        name: 'Chemical Storage',
+        points: [
+          { text: 'हर bottle पर clearly label लगाएं', sub: '' },
+          { text: 'Locked storage area में रखें', sub: 'बच्चों और unauthorized लोगों से दूर' },
+          { text: 'Direct sunlight से बचाएं', sub: '' },
+          { text: 'Empty bottles को तुरंत dispose करें', sub: '' }
+        ]
+      }
+    ],
+    practical: ['Correct dilution prepare करके दिखाएं', 'Spray bottle सही से fill करें', 'Chemical labels identify करें', 'Gloves पहनकर chemicals handle करें'],
+    quiz: {
+      question: 'Chemicals use करते समय सबसे जरूरी safety item क्या है?',
+      options: ['Mask', 'Gloves', 'Cap', 'Boots'],
+      correct: 1,
+      explanation: 'सही! Gloves hands को chemical burns और skin damage से बचाते हैं। हमेशा chemicals handle करते वक्त gloves पहनें।'
+    }
+  },
+  {
+    id: 4,
+    emoji: '🛒',
+    title: 'Cleaning Tools और Equipment',
+    subtitle: 'सही tools का सही use',
+    objective: 'Staff को tools का proper use, maintenance और storage सिखाना। सही tool से काम जल्दी और बेहतर होता है — और equipment लंबे time तक चलती है!',
+    images: [
+      { url: 'https://images.unsplash.com/photo-1563453392212-326f5e854473?w=400&q=80', label: 'Cleaning Equipment' },
+      { url: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80', label: 'Microfiber Cloths' },
+      { url: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&q=80', label: 'Mop and Wringer' },
+      { url: 'https://images.unsplash.com/photo-1527515637462-cff94edd56f9?w=400&q=80', label: 'Vacuum Cleaner' }
+    ],
+    topics: [
+      {
+        emoji: '🧻',
+        name: 'Basic Tools',
+        points: [
+          { text: 'Microfiber Cloth — dust और bacteria को trap करता है', sub: 'Cotton cloth से 10x बेहतर! कम chemical लगता है' },
+          { text: 'Duster — high surfaces, fans, shelves के लिए', sub: 'एक दिशा में use करें — left to right' },
+          { text: 'Scrubber — stubborn stains के लिए', sub: 'Rough side और soft side — सही surface पर use करें' }
+        ]
+      },
+      {
+        emoji: '🧹',
+        name: 'Floor Cleaning Tools',
+        points: [
+          { text: 'Dry Mop — dry dusting के लिए, daily use', sub: 'Floor पर wet mop से पहले dry mop जरूरी है' },
+          { text: 'Wet Mop — floors को sanitize और clean करने के लिए', sub: 'Figure-8 technique use करें (Day 5 में detail सीखेंगे)' },
+          { text: 'Broom — large debris हटाने के लिए', sub: 'Indoor के लिए soft bristle, outdoor के लिए hard bristle' }
+        ]
+      },
+      {
+        emoji: '🪣',
+        name: 'Wringer Trolley — सही use सीखें',
+        points: [
+          { text: 'Water filling: Bucket में एक तिहाई पानी + diluted cleaner', sub: 'ज्यादा पानी floor जल्दी dry नहीं होता' },
+          { text: 'Mop squeezing: Wringer को press करके excess पानी निकालें', sub: 'Mop nearly dry होना चाहिए — damp, not wet' },
+          { text: 'Dirty water regularly change करें', sub: 'गंदे पानी से clean floor clean नहीं होती!' },
+          { text: 'Use के बाद trolley wash करके dry करें', sub: '' }
+        ],
+        tip: { type: 'info', icon: '💡', text: 'Wringer trolley का पानी हर 2-3 rooms के बाद बदलें। गंदे पानी से पोंछा लगाने पर floor गंदी दिखती है और bacteria फैलता है।' }
+      },
+      {
+        emoji: '🪟',
+        name: 'Glass Cleaning Tools',
+        points: [
+          { text: 'Squeegee (Glass Wiper) — streak-free cleaning के लिए', sub: 'Top to bottom, overlapping strokes में use करें' },
+          { text: 'Microfiber glass cloth — lint-free cleaning', sub: '' }
+        ]
+      },
+      {
+        emoji: '⚙️',
+        name: 'Machines',
+        points: [
+          { text: 'Vacuum Cleaner — carpets, upholstery, corners के लिए', sub: 'Slow और steady movement — rush करने से dust escape हो जाती है' },
+          { text: 'Single Disc Machine — floor scrubbing और polishing के लिए', sub: 'Supervisor से training लेकर use करें' }
+        ]
+      },
+      {
+        emoji: '🔧',
+        name: 'Equipment Maintenance',
+        points: [
+          { text: 'हर use के बाद cleaning tools wash करें', sub: 'Dirty tools से dirty cleaning होती है' },
+          { text: 'Tools को dry करके store करें', sub: 'Wet storage से mold/bacteria grow होता है' },
+          { text: 'Damaged tools तुरंत report करें', sub: '' }
+        ]
+      }
+    ],
+    practical: ['Wringer trolley का demonstration करें', 'Vacuum cleaner operate करें', 'Squeegee से glass clean करें', 'Tools को properly store करें'],
+    quiz: {
+      question: 'Wet mop use करते वक्त पानी कितना होना चाहिए?',
+      options: ['Mop पूरी तरह भीगी हो', 'Mop damp हो (nearly dry)', 'Mop सूखी हो', 'कोई फर्क नहीं पड़ता'],
+      correct: 1,
+      explanation: 'सही! Mop damp होनी चाहिए — बहुत ज्यादा पानी से floor slip hazard बनती है और जल्दी dry नहीं होती।'
+    }
+  },
+  {
+    id: 5,
+    emoji: '✨',
+    title: 'Floor Care',
+    subtitle: 'Professional floor cleaning techniques',
+    objective: 'Staff को floor cleaning professional way में करना सिखाना। Floor किसी भी space का सबसे बड़ा visible surface है — यह साफ और shiny हो तो पूरी जगह अच्छी लगती है!',
+    images: [
+      { url: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&q=80', label: 'Professional Floor Cleaning' },
+      { url: 'https://images.unsplash.com/photo-1563453392212-326f5e854473?w=400&q=80', label: 'Figure-8 Mopping' },
+      { url: 'https://images.unsplash.com/photo-1527515637462-cff94edd56f9?w=400&q=80', label: 'Scrubbing Machine' },
+      { url: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80', label: 'Floor Buffing' }
+    ],
+    topics: [
+      {
+        emoji: '🧹',
+        name: 'Sweeping Techniques',
+        points: [
+          { text: 'Dust control method — broom को floor से थोड़ा ऊपर रखकर sweep करें', sub: 'जमीन पर रगड़ने से dust उड़ती है, controlled करो' },
+          { text: 'कोनों से शुरू करो, middle में लाओ', sub: '' },
+          { text: 'Dust को pile करो, एक जगह से उठाओ', sub: '' },
+          { text: 'Indoor के लिए soft bristle broom', sub: 'Harsh bristle से tiles scratch होती हैं' }
+        ]
+      },
+      {
+        emoji: '🔄',
+        name: 'Figure-8 Mopping Technique',
+        points: [
+          { text: 'Mop को figure "8" (अंग्रेजी 8) की shape में move करें', sub: 'यह technique surface को ज्यादा effectively clean करती है' },
+          { text: 'Backward direction में काम करें — अपने पीछे की cleaned floor पर मत चलो', sub: '' },
+          { text: 'Overlapping strokes — कोई area miss नहीं होना चाहिए', sub: '' },
+          { text: 'Edges और corners को अलग से साफ करें', sub: '' }
+        ],
+        tip: { type: 'info', icon: '💡', text: 'Figure-8 technique से mop कभी एक जगह static नहीं रहती, जिससे even और efficient cleaning होती है। यह professional technique है!' }
+      },
+      {
+        emoji: '🔄',
+        name: 'Wet Mop vs Dry Mop',
+        points: [
+          { text: 'Dry mop पहले — loose dirt, dust, hair उठाने के लिए', sub: 'Dry mopping के बिना wet mopping ineffective है' },
+          { text: 'Wet mop बाद में — sanitize और deep clean के लिए', sub: '' },
+          { text: 'Sequence कभी मत बदलो', sub: '' }
+        ]
+      },
+      {
+        emoji: '🤖',
+        name: 'Machine Cleaning',
+        points: [
+          { text: 'Scrubbing machine — stubborn stains, heavily soiled floors के लिए', sub: 'Slow speed se start करें' },
+          { text: 'Water extraction machine — wet floors को dry करती है', sub: '' },
+          { text: 'Machine use करने से पहले supervisor से permission और training लें', sub: '' }
+        ],
+        tip: { type: 'warning', icon: '⚠️', text: 'Machines बिना training के use करना dangerous हो सकता है। पहली बार supervisor की presence में use करें।' }
+      },
+      {
+        emoji: '💎',
+        name: 'Floor Polishing / Buffing',
+        points: [
+          { text: 'Buffing से floor को shine मिलती है', sub: 'High-speed buffer machine use होती है' },
+          { text: 'Polish apply करके buff करें', sub: '' },
+          { text: 'Regular buffing से floor की life बढ़ती है', sub: '' }
+        ]
+      }
+    ],
+    practical: ['Figure-8 mopping technique practice करें', 'Dry mop → wet mop sequence demonstrate करें', 'Scrubbing machine का basic demonstration देखें'],
+    quiz: {
+      question: 'Figure-8 mopping technique क्यों use होती है?',
+      options: ['यह तेज होती है', 'यह floor को ज्यादा effectively और evenly clean करती है', 'यह कम पानी use करती है', 'यह देखने में अच्छी लगती है'],
+      correct: 1,
+      explanation: 'Excellent! Figure-8 technique से mop constantly moving रहती है, जिससे surface evenly clean होती है और कोई area miss नहीं होता।'
+    }
+  },
+  {
+    id: 6,
+    emoji: '🚽',
+    title: 'Washroom Cleaning SOP',
+    subtitle: 'Professional washroom hygiene standards',
+    objective: 'Staff को washroom hygiene का highest standard सिखाना। Washroom cleaning सबसे important और challenging task है। इसे सही तरीके से करने से disease prevention होती है!',
+    images: [
+      { url: 'https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=400&q=80', label: 'Clean Washroom' },
+      { url: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=400&q=80', label: 'Toilet Cleaning' },
+      { url: 'https://images.unsplash.com/photo-1563453392212-326f5e854473?w=400&q=80', label: 'Mirror Cleaning' },
+      { url: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80', label: 'Restocking Supplies' }
+    ],
+    topics: [
+      {
+        emoji: '📝',
+        name: 'Cleaning Sequence — Step by Step SOP',
+        isSteps: true,
+        steps: [
+          'PPE पहनें — gloves, apron, जरूरत हो तो mask',
+          'Urinal flush करें और toilet cleaner apply करें (5 min के लिए छोड़ दें)',
+          'Basin और fixtures पर cleaner apply करें',
+          'WC को brush से scrub करें',
+          'Urinal scrub करें',
+          'Basin, taps, fixtures wipe करें',
+          'Mirror को glass cleaner से साफ करें (streak-free)',
+          'Floor sweep करें (debris हटाएं)',
+          'Floor mop करें',
+          'Consumables refill करें (tissue, soap, air freshener)',
+          'Waste bin empty करें और fresh bag लगाएं',
+          'WET FLOOR sign लगाएं जब तक floor dry न हो',
+          'PPE उतारें और हाथ धोएं'
+        ]
+      },
+      {
+        emoji: '🚰',
+        name: 'Fixture Cleaning Details',
+        points: [
+          { text: 'Basin: Tap पर limescale हटाएं, overflow hole साफ करें', sub: 'Descaler chemical use करें stubborn deposits के लिए' },
+          { text: 'Urinal: Pink stains = bacteria, yellow = urine scale', sub: 'Regular cleaning से buildup prevent होता है' },
+          { text: 'WC: Under the rim brush से scrub करें — यहाँ सबसे ज्यादा bacteria होते हैं', sub: 'Toilet seat, both sides साफ करें' }
+        ],
+        tip: { type: 'danger', icon: '⛔', text: 'Washroom cleaning के दौरान ALWAYS gloves और PPE पहनें। Toilet bacteria serious बीमारियाँ cause कर सकते हैं।' }
+      },
+      {
+        emoji: '🪟',
+        name: 'Mirror Cleaning',
+        points: [
+          { text: 'Glass cleaner spray करें, microfiber cloth से circular motion में wipe करें', sub: '' },
+          { text: 'Streak-free finish के लिए dry clean microfiber cloth से final wipe करें', sub: '' },
+          { text: 'Edges और frame भी clean करें', sub: '' }
+        ]
+      },
+      {
+        emoji: '📦',
+        name: 'Consumables Replenishment',
+        points: [
+          { text: 'Tissue paper — हर cleaning round में check करें, refill करें', sub: '' },
+          { text: 'Soap dispenser — 30% से कम हो तो refill करें', sub: '' },
+          { text: 'Air freshener — spray करें और automatic dispenser check करें', sub: '' },
+          { text: 'Shortage को immediately supervisor को report करें', sub: '' }
+        ]
+      }
+    ],
+    practical: ['Complete washroom cleaning SOP demonstration करें', 'Mirror streak-free cleaning practice', 'Consumables check और refill procedure'],
+    quiz: {
+      question: 'Washroom cleaning में सबसे पहले क्या करना चाहिए?',
+      options: ['Floor mop करना', 'Toilet clean करना', 'PPE पहनना और toilet cleaner apply करना', 'Mirror साफ करना'],
+      correct: 2,
+      explanation: 'Perfect! हमेशा PPE पहनकर शुरू करें, फिर toilet cleaner apply करके छोड़ दें ताकि वो काम कर सके जब तक आप बाकी सफाई करते हो।'
+    }
+  },
+  {
+    id: 7,
+    emoji: '🦺',
+    title: 'Safety + Waste Management + Quality Check',
+    subtitle: 'Safe work और quality standards',
+    objective: 'Staff को safe working practices और quality standards सिखाना। Training का आखिरी दिन — लेकिन ये सब daily life में apply होगा! Safety से काम करो, quality maintain करो।',
+    images: [
+      { url: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80', label: 'Safety Equipment' },
+      { url: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80', label: 'Waste Segregation' },
+      { url: 'https://images.unsplash.com/photo-1563453392212-326f5e854473?w=400&q=80', label: 'Quality Inspection' },
+      { url: 'https://images.unsplash.com/photo-1527515637462-cff94edd56f9?w=400&q=80', label: 'Fire Safety' }
+    ],
+    topics: [
+      {
+        emoji: '♻️',
+        name: 'Waste Management — Segregation जरूरी है!',
+        isColour: true,
+        colours: [
+          { color: '#43a047', bg: '#e8f5e9', area: 'हरा Bin — Wet Waste', desc: 'खाना, food scraps, vegetable peels' },
+          { color: '#1e88e5', bg: '#e3f2fd', area: 'नीला Bin — Dry Waste', desc: 'Paper, plastic, glass, metal' },
+          { color: '#fb8c00', bg: '#fff3e0', area: 'पीला Bin — Recyclable', desc: 'Clean plastic, cans, cardboard' },
+          { color: '#e53935', bg: '#ffebee', area: 'लाल Bin — Hazardous', desc: 'Chemicals, batteries, medical waste' }
+        ]
+      },
+      {
+        emoji: '🗑️',
+        name: 'Waste Segregation Rules',
+        points: [
+          { text: 'कभी mixed waste मत डालो — सही bin में सही waste', sub: '' },
+          { text: 'Bins को daily खाली करें या जब 75% भर जाएं', sub: '' },
+          { text: 'Wet waste को sealed bags में dispose करें', sub: '' },
+          { text: 'Hazardous waste को special procedure से handle करें', sub: 'Supervisor को बताएं' }
+        ],
+        tip: { type: 'success', icon: '🌿', text: 'Proper waste segregation से environment की रक्षा होती है। यह सिर्फ rule नहीं — यह हमारी जिम्मेदारी है!' }
+      },
+      {
+        emoji: '🦺',
+        name: 'Safety Training',
+        points: [
+          { text: 'PPE (Personal Protective Equipment) — हमेशा सही PPE use करें', sub: 'Gloves, apron, mask, boots as required' },
+          { text: 'WET FLOOR signs — floor मोपने के बाद तुरंत sign लगाएं', sub: 'Slip और fall accidents prevent होते हैं' },
+          { text: 'Slip & Fall prevention — spills तुरंत clean करें', sub: 'Koi भी liquid floor पर गिरे तो तुरंत साफ करो' },
+          { text: 'Heavy lifting — कमर सीधी रखकर, knees से उठाएं', sub: 'Back injury से बचने के लिए' }
+        ],
+        tip: { type: 'danger', icon: '⛔', text: 'WET FLOOR sign बहुत जरूरी है! बिना sign के मोपी हुई floor पर कोई फिसल सकता है और आप जिम्मेदार होंगे।' }
+      },
+      {
+        emoji: '🔥',
+        name: 'Fire Safety Basics',
+        points: [
+          { text: 'Fire extinguisher की location जानें — हर floor पर', sub: '' },
+          { text: 'PASS method: Pull → Aim → Squeeze → Sweep', sub: 'इसे याद करें!' },
+          { text: 'Emergency में: तुरंत fire alarm pull करें और supervisor को call करें', sub: '' },
+          { text: 'Cleaning chemicals को heat sources से दूर रखें', sub: 'Flammable chemicals से fire risk' }
+        ]
+      },
+      {
+        emoji: '✅',
+        name: 'Quality Inspection — अपना काम खुद check करो',
+        points: [
+          { text: 'Cleaning checklist use करें — हर item tick करते जाओ', sub: '' },
+          { text: 'काम complete करने के बाद खुद inspect करो', sub: 'Koi भी spot miss तो नहीं हुई?' },
+          { text: 'Supervisor inspection के लिए ready रहो', sub: '' },
+          { text: 'Feedback लो और improve करते रहो', sub: 'हर दिन बेहतर बनना है!' }
+        ],
+        tip: { type: 'info', icon: '⭐', text: 'जो staff regularly quality checks करती है वो supervisor की नजर में अच्छी होती है और promotion के लिए consider होती है!' }
+      }
+    ],
+    practical: ['Waste segregation demonstration', 'WET FLOOR sign placement practice', 'Fire extinguisher location identify करें', 'Cleaning checklist complete करें'],
+    quiz: {
+      question: 'Floor मोपने के बाद क्या करना जरूरी है?',
+      options: ['Mop रख दो और चले जाओ', 'WET FLOOR sign लगाओ', 'Supervisor को call करो', 'Window खोलो'],
+      correct: 1,
+      explanation: 'बिल्कुल सही! WET FLOOR sign लगाना mandatory है — यह slip accidents prevent करता है और यह आपकी legal responsibility भी है।'
+    }
+  }
+];
+
+// ============================================================
+// STATE
+// ============================================================
+let staffInfo = {};
+let completedDays = [];
+let currentDay = null;
+let quizAnswered = false;
+let quizCorrect = false;
+
+function loadState() {
+  try {
+    const saved = localStorage.getItem('hk_staff');
+    if (saved) staffInfo = JSON.parse(saved);
+    const comp = localStorage.getItem('hk_completed');
+    if (comp) completedDays = JSON.parse(comp);
+  } catch(e) {}
+}
+
+function saveState() {
+  try {
+    localStorage.setItem('hk_staff', JSON.stringify(staffInfo));
+    localStorage.setItem('hk_completed', JSON.stringify(completedDays));
+  } catch(e) {}
+}
+
+function getUnlockedDay() {
+  return completedDays.length + 1;
+}
+
+// ============================================================
+// REGISTRATION
+// ============================================================
+function startTraining() {
+  const name = document.getElementById('reg-name').value.trim();
+  const id = document.getElementById('reg-id').value.trim();
+  const site = document.getElementById('reg-site').value.trim();
+  if (!name) { alert('कृपया अपना नाम भरें'); return; }
+  staffInfo = { name, id, site, registeredAt: new Date().toISOString() };
+  saveState();
+  showApp();
+}
+
+function showApp() {
+  document.getElementById('splash').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  document.getElementById('header-name').textContent = staffInfo.name;
+  renderDays();
+  updateProgress();
+}
+
+// ============================================================
+// RENDER DAYS
+// ============================================================
+function renderDays() {
+  const grid = document.getElementById('day-grid');
+  const unlocked = getUnlockedDay();
+  grid.innerHTML = '';
+  DAYS.forEach(day => {
+    const done = completedDays.includes(day.id);
+    const active = day.id === unlocked;
+    const locked = day.id > unlocked;
+    const card = document.createElement('div');
+    card.className = `day-card ${done ? 'completed' : active ? 'active' : 'locked'}`;
+    if (!locked) card.onclick = () => openLesson(day.id);
+    card.innerHTML = `
+      <div class="day-header">
+        <div class="day-icon">${day.emoji}</div>
+        <div class="day-info">
+          <div class="day-num">Day ${day.id}</div>
+          <div class="day-title">${day.title}</div>
+          <div class="day-subtitle">${day.subtitle}</div>
+        </div>
+        <div class="day-status">${done ? '✅' : active ? '▶️' : '🔒'}</div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function updateProgress() {
+  const pct = Math.round((completedDays.length / 7) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-text').textContent = `${completedDays.length} / 7 दिन पूरे`;
+  document.getElementById('progress-pct').textContent = pct + '%';
+  if (completedDays.length === 7) showCertificate();
+}
+
+// ============================================================
+// OPEN LESSON
+// ============================================================
+function openLesson(dayId) {
+  currentDay = DAYS.find(d => d.id === dayId);
+  quizAnswered = false;
+  quizCorrect = false;
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('lesson-view').style.display = 'block';
+  document.getElementById('lesson-day-label').textContent = `Day ${currentDay.id} of 7`;
+  document.getElementById('lesson-title').textContent = currentDay.title;
+  document.getElementById('lesson-objective').textContent = '🎯 ' + currentDay.objective;
+  renderLesson();
+  window.scrollTo(0,0);
+  updateCompleteBtn();
+}
+
+function backToHome() {
+  document.getElementById('lesson-view').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+}
+
+function renderLesson() {
+  const day = currentDay;
+  let html = '';
+
+  // Images
+  html += `<div class="image-section">
+    <div class="image-section-title">📸 Reference Images</div>
+    <div class="image-grid">`;
+  day.images.forEach(img => {
+    html += `<div class="img-card">
+      <img src="${img.url}" alt="${img.label}" loading="lazy" onerror="this.style.display='none'">
+      <div class="img-label">${img.label}</div>
+    </div>`;
+  });
+  html += `</div></div>`;
+
+  // Topics
+  day.topics.forEach(topic => {
+    html += `<div class="topic-section">
+      <div class="topic-header">
+        <div class="topic-emoji">${topic.emoji}</div>
+        <div class="topic-name">${topic.name}</div>
+      </div>
+      <div class="topic-body">`;
+
+    if (topic.isColour && topic.colours) {
+      html += `<div class="colour-codes">`;
+      topic.colours.forEach(c => {
+        html += `<div class="colour-box" style="background:${c.bg}">
+          <div class="colour-dot" style="background:${c.color}"></div>
+          <div>
+            <div class="colour-desc" style="color:${c.color};font-weight:700">${c.area}</div>
+            <div style="font-size:13px;color:#555">${c.desc}</div>
+          </div>
+        </div>`;
+      });
+      html += `</div>`;
+    } else if (topic.isSteps && topic.steps) {
+      html += `<div class="steps-list">`;
+      topic.steps.forEach((step, i) => {
+        html += `<div class="step-item">
+          <div class="step-num">${i+1}</div>
+          <div class="step-text">${step}</div>
+        </div>`;
+      });
+      html += `</div>`;
+    } else if (topic.points) {
+      topic.points.forEach(pt => {
+        html += `<div class="topic-point">
+          <div class="point-bullet"></div>
+          <div>
+            <div class="point-text">${pt.text}</div>
+            ${pt.sub ? `<div class="point-sub">${pt.sub}</div>` : ''}
+          </div>
+        </div>`;
+      });
+    }
+
+    if (topic.tip) {
+      html += `<div class="tip-box ${topic.tip.type}">
+        <div class="tip-icon">${topic.tip.icon}</div>
+        <div class="tip-text">${topic.tip.text}</div>
+      </div>`;
+    }
+
+    html += `</div></div>`;
+  });
+
+  // Practical
+  html += `<div class="practical-section">
+    <div class="practical-title">🛠️ Practical Activities</div>`;
+  day.practical.forEach(p => {
+    html += `<div class="practical-item">✋ ${p}</div>`;
+  });
+  html += `</div>`;
+
+  // Quiz
+  const q = day.quiz;
+  html += `<div class="quiz-section">
+    <div class="quiz-header">
+      <div class="quiz-title">📝 Quick Quiz</div>
+      <div class="quiz-subtitle">अपना ज्ञान check करें</div>
+    </div>
+    <div class="quiz-body">
+      <div class="quiz-question">${q.question}</div>
+      <div class="quiz-options" id="quiz-opts">`;
+  q.options.forEach((opt, i) => {
+    html += `<button class="quiz-option" onclick="answerQuiz(${i})">${opt}</button>`;
+  });
+  html += `</div>
+      <div class="quiz-feedback" id="quiz-feedback"></div>
+    </div>
+  </div>`;
+
+  // 40px spacer
+  html += `<div style="height:40px"></div>`;
+
+  document.getElementById('lesson-content').innerHTML = html;
+}
+
+function answerQuiz(idx) {
+  if (quizAnswered) return;
+  quizAnswered = true;
+  const q = currentDay.quiz;
+  quizCorrect = idx === q.correct;
+  const opts = document.querySelectorAll('.quiz-option');
+  opts.forEach((opt, i) => {
+    opt.disabled = true;
+    if (i === q.correct) opt.classList.add('correct');
+    else if (i === idx && !quizCorrect) opt.classList.add('wrong');
+  });
+  const fb = document.getElementById('quiz-feedback');
+  fb.className = `quiz-feedback show tip-box ${quizCorrect ? 'success' : 'warning'}`;
+  fb.innerHTML = `<div class="tip-icon">${quizCorrect ? '🎉' : '💡'}</div><div class="tip-text">${q.explanation}</div>`;
+  updateCompleteBtn();
+}
+
+function updateCompleteBtn() {
+  const btn = document.getElementById('complete-btn');
+  const isDone = completedDays.includes(currentDay.id);
+  if (isDone) {
+    btn.textContent = '✅ यह Day पहले ही पूरी हो चुकी है';
+    btn.disabled = true;
+  } else if (!quizAnswered) {
+    btn.textContent = '📝 पहले Quiz attempt करें';
+    btn.disabled = true;
+  } else {
+    btn.textContent = '✅ Day पूरी की — Mark Complete!';
+    btn.disabled = false;
+  }
+}
+
+// ============================================================
+// COMPLETE DAY
+// ============================================================
+async function completeDay() {
+  const day = currentDay;
+  if (completedDays.includes(day.id)) return;
+  completedDays.push(day.id);
+  saveState();
+
+  // Send to Google Sheets
+  sendToGoogleSheet(day.id);
+
+  // Show celebration
+  showCelebration(day);
+}
+
+function showCelebration(day) {
+  const msgs = [
+    ['🎉', 'Zabardast!', `Day ${day.id} complete! Aap ne aaj professional housekeeping ki foundation seekhi. Kal Day 2 mein milenge!`],
+    ['🌟', 'Wah kya baat hai!', `Cleaning sequence aur colour coding ab aapko pata hai. Kal chemicals seekhenge!`],
+    ['💪', 'Bahut acha!', `Chemicals ka safe use seekha. Aap ek professional ban rahe hain!`],
+    ['🛠️', 'Excellent!', `Tools ka sahi use aana chahiye — aapne seekha! Kal floor cleaning hogi.`],
+    ['✨', 'Khatarnak performance!', `Floor care mein aap expert ho gaye. Kal washroom SOP seekhenge!`],
+    ['🚽', 'Champion!', `Washroom cleaning SOP master kar li! Aaj sirf ek din aur bacha hai!`],
+    ['🏆', 'Training Complete!', `7 din mein aapne poori HK Training complete kar li! Aap ab ek certified professional hain!`]
+  ];
+  const [emoji, title, msg] = msgs[day.id - 1] || msgs[0];
+  document.getElementById('cel-emoji').textContent = emoji;
+  document.getElementById('cel-title').textContent = title;
+  document.getElementById('cel-msg').textContent = msg;
+  document.getElementById('celebration').classList.add('show');
+  launchConfetti();
+}
+
+function closeCelebration() {
+  document.getElementById('celebration').classList.remove('show');
+  document.querySelectorAll('.confetti-piece').forEach(el => el.remove());
+  backToHome();
+  renderDays();
+  updateProgress();
+}
+
+function launchConfetti() {
+  const colors = ['#1a73e8','#fbbc04','#34a853','#ea4335','#9c27b0','#ff9800'];
+  for (let i = 0; i < 60; i++) {
+    setTimeout(() => {
+      const el = document.createElement('div');
+      el.className = 'confetti-piece';
+      el.style.cssText = `
+        left: ${Math.random() * 100}vw;
+        top: -20px;
+        background: ${colors[Math.floor(Math.random() * colors.length)]};
+        animation-duration: ${1.5 + Math.random() * 2}s;
+        animation-delay: ${Math.random() * 0.5}s;
+        transform: rotate(${Math.random() * 360}deg);
+        width: ${6 + Math.random() * 8}px;
+        height: ${6 + Math.random() * 8}px;
+      `;
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 3000);
+    }, i * 30);
+  }
+}
+
+// ============================================================
+// GOOGLE SHEETS INTEGRATION
+// ============================================================
+async function sendToGoogleSheet(dayId) {
+  if (!GOOGLE_SHEET_URL || GOOGLE_SHEET_URL === 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE') return;
+  try {
+    const payload = {
+      name: staffInfo.name,
+      employeeId: staffInfo.id || 'N/A',
+      site: staffInfo.site || 'N/A',
+      dayId: dayId,
+      dayTitle: DAYS[dayId-1].title,
+      completedAt: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
+      timestamp: new Date().toISOString()
+    };
+    await fetch(GOOGLE_SHEET_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+  } catch(e) {
+    console.log('Sheet sync failed (offline?):', e);
+  }
+}
+
+// ============================================================
+// CERTIFICATE
+// ============================================================
+function showCertificate() {
+  const content = document.getElementById('lesson-content');
+  if (!content) return;
+  content.innerHTML = `
+    <div class="cert-card">
+      <div class="cert-badge">🏆</div>
+      <div class="cert-title">Certificate of Completion</div>
+      <div style="font-size:13px;color:#888;margin-bottom:8px">यह प्रमाणित करता है कि</div>
+      <div class="cert-name">${staffInfo.name}</div>
+      <div class="cert-text">
+        ने HK Pro Training Program के सभी 7 दिन सफलतापूर्वक पूरे किए हैं।<br><br>
+        आप अब एक Professional Housekeeping Staff Member हैं।<br>
+        आपकी मेहनत और dedication के लिए बधाई! 🎊
+      </div>
+      <div style="margin-top:20px;font-size:13px;color:#aaa">
+        Completed: ${new Date().toLocaleDateString('hi-IN')} | Site: ${staffInfo.site || 'N/A'}
+      </div>
+    </div>
+  `;
+}
+
+// ============================================================
+// INIT
+// ============================================================
+loadState();
+if (staffInfo.name) {
+  showApp();
+} else {
+  document.getElementById('splash').style.display = 'flex';
+}
+</script>
+</body>
+</html>
